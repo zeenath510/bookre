@@ -535,7 +535,7 @@ app.post("/books/download/:bid/:uid", async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // ----------------- Reviews -------------------------------//
 // POST: Add a review
