@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import API_URL from "../../configs/api";
 
 export function UserHome() {
   const [books, setBooks] = useState([]);
@@ -27,7 +28,7 @@ export function UserHome() {
 
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/books");
+        const response = await axios.get(`${API_URL}/books`);
         const allBooks = response.data;
 
         setBooks(allBooks);
@@ -171,7 +172,7 @@ export function UserHome() {
                       >
                         <div className="relative h-64 overflow-hidden">
                           <img
-                            src={`http://localhost:3000${book.cover_image}`}
+                            src={`${API_URL}${book.cover_image}`}
                             alt={book.title}
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                             loading="lazy"

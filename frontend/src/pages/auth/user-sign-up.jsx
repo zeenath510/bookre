@@ -8,8 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import Tags from "@yaireo/tagify/dist/react.tagify"; 
+import Tags from "@yaireo/tagify/dist/react.tagify";
 import "@yaireo/tagify/dist/tagify.css";
+import API_URL from "../../configs/api";
 
 export function UserSignUp() {
   const [uname, setUname] = useState("");
@@ -17,7 +18,7 @@ export function UserSignUp() {
   const [umobile, setUmobile] = useState("");
   const [upass, setUpass] = useState("");
   const [genreOptions, setGenreOptions] = useState([]);
-  const [genreLike, setGenreLike] = useState([]); 
+  const [genreLike, setGenreLike] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ export function UserSignUp() {
   useEffect(() => {
     const fetchGenres = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/books");
+        const res = await axios.get(`${API_URL}/books`);
         const uniqueGenres = [...new Set(res.data.map((b) => b.genre))];
         setGenreOptions(uniqueGenres.map((g) => ({ value: g })));
       } catch (err) {
@@ -46,7 +47,7 @@ export function UserSignUp() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -129,7 +130,7 @@ export function UserSignUp() {
                 Enter Your Favorite Genres
               </Typography>
               <Tags
-                className="w-full"   
+                className="w-full"
                 style={{ width: "100%" }}
                 settings={{
                   whitelist: genreOptions,

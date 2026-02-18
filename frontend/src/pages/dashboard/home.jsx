@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import { StatisticsCard } from "@/widgets/cards";
 import axios from "axios";
+import API_URL from "../../configs/api";
 
 // Use your existing icons from statisticsCardsData
 import { statisticsCardsData as initialCardsData } from "@/data";
@@ -15,7 +16,7 @@ export function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/stats"); // your API endpoint
+        const res = await axios.get(`${API_URL}/stats`); // your API endpoint
         setStats(res.data);
       } catch (err) {
         console.error("Error fetching stats:", err);
@@ -45,7 +46,7 @@ export function Home() {
             title={title}
             value={value}
             icon={React.createElement(icon, { className: "w-6 h-6 text-white" })}
-            footer={footer} 
+            footer={footer}
           />
         ))}
       </div>

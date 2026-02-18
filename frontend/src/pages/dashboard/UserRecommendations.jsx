@@ -9,6 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../../configs/api";
 
 export default function UserRecommendations() {
   const [users, setUsers] = useState([]);
@@ -22,7 +23,7 @@ export default function UserRecommendations() {
     const fetchUsers = async () => {
       setLoadingUsers(true);
       try {
-        const res = await fetch("http://localhost:3000/users"); // API to get all users
+        const res = await fetch(`${API_URL}/users`); // API to get all users
         const data = await res.json();
         setUsers(data);
         if (data.length > 0) setSelectedUser(data[0].uid); // default first user
@@ -44,7 +45,7 @@ export default function UserRecommendations() {
       setLoadingBooks(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/users/${selectedUser}/recommendations`
+          `${API_URL}/users/${selectedUser}/recommendations`
         );
         const data = await res.json();
         setBooks(data);
@@ -123,7 +124,7 @@ export default function UserRecommendations() {
                       <tr key={book.bid} className="hover:bg-gray-50 transition-colors duration-200">
                         <td className={className}>
                           <Avatar
-                            src={`http://localhost:3000${book.cover_image}`}
+                            src={`${API_URL}${book.cover_image}`}
                             alt={book.title || book.book_title}
                             size="md"
                             variant="rounded"

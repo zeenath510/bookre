@@ -15,6 +15,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { authorsTableData, projectsTableData } from "@/data";
 import { Link } from "react-router-dom";
+import API_URL from "../../configs/api";
 
 export function ViewBook() {
 
@@ -25,7 +26,7 @@ export function ViewBook() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await fetch("http://localhost:3000/books");
+        const res = await fetch(`${API_URL}/books`);
         const data = await res.json();
         setBooks(data);
       } catch (err) {
@@ -42,7 +43,7 @@ export function ViewBook() {
     if (!window.confirm(`Are you sure you want to delete "${bookTitle}"?`)) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/books/${bookId}`, {
+      const res = await fetch(`${API_URL}/books/${bookId}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -90,15 +91,15 @@ export function ViewBook() {
               <tbody>
                 {books.map((book, key) => {
                   const className = `py-4 px-6 ${key === books.length - 1
-                      ? ""
-                      : "border-b border-blue-gray-50"
+                    ? ""
+                    : "border-b border-blue-gray-50"
                     }`;
                   return (
                     <tr key={book.bid || book._id} className="hover:bg-gray-50 transition-colors duration-200">
                       {/* Cover image */}
                       <td className={className}>
                         <Avatar
-                          src={`http://localhost:3000${book.cover_image}`}
+                          src={`${API_URL}${book.cover_image}`}
                           alt={book.title}
                           size="md"
                           variant="rounded"

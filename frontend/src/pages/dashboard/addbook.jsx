@@ -2,6 +2,7 @@ import { Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../../configs/api";
 
 export function AddBook() {
   const [form, setForm] = useState({
@@ -41,7 +42,7 @@ export function AddBook() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/books", {
+      const response = await fetch(`${API_URL}/books`, {
         method: "POST",
         body: formData,
       });

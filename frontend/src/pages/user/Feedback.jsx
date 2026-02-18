@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../../configs/api";
 import UserNavbar from "@/components/UserNavbar";
 import Footer from "@/components/Footer";
 
@@ -24,7 +25,7 @@ export default function Feedback() {
 
         setLoading(true);
         try {
-            await axios.post("http://localhost:3000/feedback", {
+            await axios.post(`${API_URL}/feedback`, {
                 uid: user.uid,
                 type,
                 message,
@@ -99,8 +100,8 @@ export default function Feedback() {
                             type="submit"
                             disabled={loading}
                             className={`w-full py-3 px-6 rounded-lg text-white font-bold tracking-wide transition-all ${loading
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg"
                                 }`}
                         >
                             {loading ? "Submitting..." : "Submit Feedback"}

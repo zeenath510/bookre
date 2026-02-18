@@ -5,6 +5,7 @@ import UserNavbar from "@/components/UserNavbar";
 import Footer from "@/components/Footer";
 import { toast } from "react-toastify";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline"; // download icon
+import API_URL from "../../configs/api";
 
 export default function UserRecommendation() {
   const [books, setBooks] = useState([]);
@@ -26,7 +27,7 @@ export default function UserRecommendation() {
   const fetchRecommendations = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/users/${user.uid}/recommendations`,
+        `${API_URL}/users/${user.uid}/recommendations`,
         { params: { search } }
       );
       setBooks(res.data);
@@ -41,11 +42,11 @@ export default function UserRecommendation() {
   const handleDownload = async (book) => {
     try {
       // 1. Record download in DB
-      await axios.post(`http://localhost:3000/books/download/${book.bid}/${user.uid}`);
+      await axios.post(`${API_URL}/books/download/${book.bid}/${user.uid}`);
 
       // 2. Trigger actual download
       const link = document.createElement("a");
-      link.href = `http://localhost:3000/books/download/${book.bid}`;
+      link.href = `${API_URL}/books/download/${book.bid}`;
       link.target = "_blank";
       link.click();
     } catch (err) {
@@ -83,7 +84,7 @@ export default function UserRecommendation() {
                     className="bg-white shadow-md rounded-lg p-4 flex flex-col dark:bg-gray-800 dark:border-gray-700"
                   >
                     <img
-                      src={`http://localhost:3000${book.cover_image}`}
+                      src={`${API_URL}${book.cover_image}`}
                       alt={book.title}
                       className="h-48 w-full object-cover rounded mb-4"
                     />

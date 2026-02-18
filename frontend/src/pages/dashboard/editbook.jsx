@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../../configs/api";
 
 export function EditBook() {
   const { id } = useParams(); // get the book ID from URL
@@ -24,7 +25,7 @@ export function EditBook() {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/books/${id}`);
+        const res = await fetch(`${API_URL}/books/${id}`);
         if (!res.ok) throw new Error("Failed to fetch book");
         const data = await res.json();
 
@@ -63,7 +64,7 @@ export function EditBook() {
     });
 
     try {
-      const res = await fetch(`http://localhost:3000/books/${id}`, {
+      const res = await fetch(`${API_URL}/books/${id}`, {
         method: "PUT",
         body: formData,
       });
@@ -147,7 +148,7 @@ export function EditBook() {
                     src={
                       form.cover_image instanceof File
                         ? URL.createObjectURL(form.cover_image) // new file selected
-                        : `http://localhost:3000${form.cover_image}` // existing image from DB
+                        : `${API_URL}${form.cover_image}` // existing image from DB
                     }
                     alt="Cover Preview"
                     className="mt-2 h-48 w-auto object-cover rounded-lg border"

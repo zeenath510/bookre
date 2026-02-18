@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import API_URL from "../../configs/api";
 
 export function UserSignIn() {
   const [uname, setUname] = useState("");
@@ -25,7 +26,7 @@ export function UserSignIn() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uname: uname.trim(), upass: upass.trim() }), // ✅ match backend

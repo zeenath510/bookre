@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import UserNavbar from "@/components/UserNavbar";
 import Footer from "@/components/Footer";
+import API_URL from "../../configs/api";
 
 export function BookDetails() {
   const { id } = useParams();
@@ -19,8 +20,8 @@ export function BookDetails() {
     const fetchBookAndReviews = async () => {
       try {
         const [bookRes, reviewsRes] = await Promise.all([
-          axios.get(`http://localhost:3000/books/${id}`),
-          axios.get(`http://localhost:3000/books/${id}/reviews`),
+          axios.get(`${API_URL}/books/${id}`),
+          axios.get(`${API_URL}/books/${id}/reviews`),
         ]);
         setBook(bookRes.data);
         setReviews(reviewsRes.data);
@@ -47,7 +48,7 @@ export function BookDetails() {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/reviews", {
+      const res = await axios.post(`${API_URL}/reviews`, {
         uid: user.uid,
         bid: id,
         rating: newReview.rating,
@@ -81,7 +82,7 @@ export function BookDetails() {
               {/* Left side - Book Image */}
               <div className="col-span-12 md:col-span-6 flex items-center justify-center">
                 <img
-                  src={`http://localhost:3000${book.cover_image}`}
+                  src={`${API_URL}${book.cover_image}`}
                   alt={book.title}
                   className="w-full h-auto max-h-[500px] object-cover rounded"
                 />
