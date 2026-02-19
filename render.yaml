@@ -13,9 +13,9 @@ services:
         sync: false # You will need to enter this in the Render dashboard
 
   # Frontend Service
-  - type: web
+  - type: static
     name: book-re-frontend
-    env: static
+    # env: static - Removed as 'type: static' implies this
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     envVars:

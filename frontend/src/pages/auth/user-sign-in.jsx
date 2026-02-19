@@ -3,7 +3,7 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,12 @@ export function UserSignIn() {
   const [upass, setUpass] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // DEBUG: Show API URL to verify environment variable
+    console.log("Current API_URL:", API_URL);
+    toast.info(`Connecting to: ${API_URL}`, { autoClose: 5000 });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
